@@ -1,0 +1,27 @@
+# Vivado generated folders
+RISC_V_SNN/*.cache/
+RISC_V_SNN/*.hw/
+RISC_V_SNN/*.ip_user_files/
+RISC_V_SNN/*.sim/
+RISC_V_SNN/*.runs/
+RISC_V_SNN/*.gen/
+
+# XSim generated data
+RISC_V_SNN/**/*.wdb
+RISC_V_SNN/**/*.sdb
+RISC_V_SNN/**/*.pb
+RISC_V_SNN/**/xsim.dir/
+
+# Vivado generated files
+*.jou
+*.log
+*.str
+*.rpt
+*.dmp
+
+# OS
+Thumbs.db
+.DS_Store
+
+# VS Code
+.vscode/
