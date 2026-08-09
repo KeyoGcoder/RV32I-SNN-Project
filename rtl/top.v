@@ -24,6 +24,7 @@ module top (
     wire        mem_to_reg;
     wire        branch;
     wire        jump;
+    wire        jalr;
     wire [1:0]  alu_op;
     wire [3:0]  alu_control;
     wire        is_r_type;
@@ -53,6 +54,7 @@ module top (
         .mem_to_reg (mem_to_reg),
         .branch     (branch),
         .jump       (jump),
+        .jalr       (jalr),
         .alu_op     (alu_op)
     );
 
@@ -117,11 +119,16 @@ module top (
     );
 
     // Loads write memory data; all other register writes use the ALU result.
-    assign write_back_data = mem_to_reg ? read_data : alu_result;
+    // Loads write memory data; jumps write the return address (PC+4);
+    // all other register writes use the ALU result.
+    assign write_back_data = (jump || jalr) ? pc_plus_four :
+                              mem_to_reg ? read_data : alu_result;
 
     // Select the next sequential PC, a taken branch target, or a jump target.
+   // Select the next sequential PC, a taken branch target, or a jump target.
     assign pc_plus_four = pc_out + 32'd4;
     assign next_pc = jump ? (pc_out + immediate) :
+                     jalr ? ((rs1_data + immediate) & ~32'b1) :
                      ((branch && alu_zero) ? (pc_out + immediate) : pc_plus_four);
 
 endmodule

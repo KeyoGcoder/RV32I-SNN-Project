@@ -8,6 +8,7 @@ module control_unit (
     output reg        mem_to_reg,
     output reg        branch,
     output reg        jump,
+    output reg        jalr,
     output reg  [1:0] alu_op
 );
 
@@ -31,6 +32,7 @@ module control_unit (
         mem_to_reg = 1'b0;
         branch     = 1'b0;
         jump       = 1'b0;
+        jalr       = 1'b0;
         alu_op     = 2'b00;
 
         case (opcode)
@@ -80,7 +82,7 @@ module control_unit (
             OPCODE_JALR: begin
                 reg_write = 1'b1;
                 alu_src   = 1'b1;
-                jump      = 1'b1;
+                jalr      = 1'b1;
                 alu_op    = 2'b00;
             end
 
@@ -106,6 +108,7 @@ module control_unit (
                 mem_to_reg = 1'b0;
                 branch     = 1'b0;
                 jump       = 1'b0;
+                jalr       = 1'b0;
                 alu_op     = 2'b00;
             end
         endcase
