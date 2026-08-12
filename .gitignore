@@ -24,4 +24,5 @@ Thumbs.db
 .DS_Store
 
 # VS Code
-.vscode/
+.vscode/__pycache__/
+*.pyc
